@@ -117,7 +117,10 @@ def runGame():
                 break
         
         if gameOver(wormCoordinates) == True or hurdleCollision(wormCoordinates) == True:
-            pygame.mixer.music.stop()
+            soundObj = pygame.mixer.Sound('gameOver.wav')
+            soundObj.play()
+            time.sleep(1)
+            soundObj.stop()
             compareScore(scoreCounter)
             pygame.time.wait(1000)
             return scoreCounter
@@ -125,6 +128,10 @@ def runGame():
         #  Check if snake has eaten food
 
         if wormCoordinates[0]['x'] == food['x'] and wormCoordinates[0]['y'] == food['y']:
+
+            soundObj = pygame.mixer.Sound('beep.wav')
+            soundObj.play()
+            
             food = getRandomLocation()
 
             if color == RED:
@@ -187,10 +194,11 @@ def drawHurdles():
 
 def hurdleCollision(wormCoordinates):
 
-    for hard in hurdle:
+    xx = wormCoordinates[0]['x']
+    yy = wormCoordinates[0]['y']
 
-        if wormCoordinates[0]['x'] == hard['x'] and wormCoordinates[0]['y'] == hard['y']:
-            return True
+    if visited[xx][yy] == True:
+        return True
 
     return False
 
@@ -376,9 +384,13 @@ def startPage():
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if highScoreButton.isOver(pos):
+                    soundObj = pygame.mixer.Sound('button.wav')
+                    soundObj.play()
                     highScorePage(0)
                     
                 elif creditsButton.isOver(pos):
+                    soundObj = pygame.mixer.Sound('button.wav')
+                    soundObj.play()
                     creditsPage()
                     
             elif event.type == pygame.MOUSEMOTION:
@@ -456,9 +468,13 @@ def gameOverPage(score):
                 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if highScoreButton.isOver(pos):
+                    soundObj = pygame.mixer.Sound('button.wav')
+                    soundObj.play()
                     highScorePage(score)
                     return
                 elif creditsButton.isOver(pos):
+                    soundObj = pygame.mixer.Sound('button.wav')
+                    soundObj.play()
                     creditsPage()
                     return 
                     
