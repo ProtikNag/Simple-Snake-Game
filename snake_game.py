@@ -35,7 +35,7 @@ LEFT = 'left'
 RIGHT = 'right'
 
 
-hurdle = ({'x': 5,    'y': 5}, {'x':16,    'y': 5}, {'x':34,    'y': 5},
+hurdle =     ({'x': 5,    'y': 5}, {'x':16,    'y': 5}, {'x':34,    'y': 5},
               {'x': 5,    'y': 6}, {'x':16,    'y':24}, {'x':34,    'y':24},
               {'x': 5,    'y':23}, {'x':16,    'y': 6}, {'x':42,    'y': 5},
               {'x': 5,    'y':24}, {'x':16,    'y':23}, {'x':42,    'y':24},
@@ -46,6 +46,8 @@ hurdle = ({'x': 5,    'y': 5}, {'x':16,    'y': 5}, {'x':34,    'y': 5},
               {'x':10,    'y':14}, {'x':38,    'y':14}, {'x':11,    'y':14},
               {'x':10,    'y':15}, {'x':38,    'y':15}, {'x':39,    'y':14},
               {'x':11,    'y':15}, {'x':39,    'y':15})
+
+visited = [[False for y in range(30)] for y in range(50)]
 
 
 
@@ -61,6 +63,7 @@ def main():
     pygame.display.set_caption('Snake Mania')
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
 
+    makeVisited()
     startPage()
 
     while True:
@@ -73,7 +76,7 @@ def main():
 def runGame():
 
     startx = 25
-    starty = 16
+    starty = 15
 
     startingDirections = (UP,DOWN,LEFT,RIGHT)
 
@@ -152,6 +155,22 @@ def runGame():
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
+
+
+def makeVisited():
+
+    for row in range(50):
+        for col in range(30):
+            has = False
+            for hard in hurdle:
+                if hard['x'] == row and hard['y'] == col:
+                    has = True
+                    break
+            if has == True:
+                visited[row][col] = True
+            else :
+                visited[row][col] = False
+            
 
 
 def drawHurdles():
@@ -277,16 +296,8 @@ def getRandomLocation():
         x_pos = random.randint(0,CELLNUMBER_X - 1)
         y_pos = random.randint(0,CELLNUMBER_Y - 1)
 
-        check = False
-
-        for hard in hurdle:
-
-            if x_pos == hard['x'] and y_pos == hard['y']:
-                check = True
-                break
-
-        if check == False:
-            return {'x': x_pos,   'y': y_pos}
+        if visited[x_pos][y_pos] == False:
+            return {'x': x_pos,   'y':y_pos}
 
 
 
@@ -554,6 +565,8 @@ def highScorePage(score):
     
     for line in lines:          
        conv_int = int(line)
+       if conv_int == 0:
+           continue
        highScores.append(conv_int)
 
     count    =   1
