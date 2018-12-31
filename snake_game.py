@@ -53,6 +53,13 @@ visited = [[False for y in range(30)] for y in range(50)]
 
 def main():
 
+    #create the highscore.txt file
+    try:
+        file = open("highscore.txt", 'r')
+    except IOError:
+        file = open("highscore.txt", 'w')
+    file.close()
+
     global FPSCLOCK, DISPLAYSURF, BASICFONT
 
     pygame.init()
