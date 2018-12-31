@@ -2,16 +2,14 @@ To play this game follow these instructions:
 
 1. Install Python on your PC. You can install and download it from here - http://www.python.org. 
 
-2. You need to install IDLE software. (For Ubuntu) From the terminal, type in "sudo apt-get install idle3". The root password is needed to install IDLE.
+2. Now you've to install Pygame and other dependencies. Run the following command in the project directory 
 
-3. Now you've to install Pygame. For Ubuntu, type in "sudo apt-get install python-pygame".
+        pip install --user -r requirements.txt
 
-4. Start IDLE. From terminal just type "idle3".
+3. Run the python script "snake_game.py". To run from the terminal/command prompt run the following command 
 
-5. Now fetch this repo to your own machine.
+        python snake_game.py
 
-6. From IDLE window open the file named "snake_game.py".
+4. The game will start.
 
-7. The game will start.
-
-8. Play as the instructions say.
+5. Play as the instructions say.
